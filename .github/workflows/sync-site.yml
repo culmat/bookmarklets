@@ -1,0 +1,27 @@
+name: Sync site content
+
+# culm.at renders this repo's site/ folder at build time, so a content change here
+# has to ask the website to rebuild itself. Mirrors culmat/digital-signature's
+# sync-site.yml, minus the wiki sync (there is no companion Confluence app).
+
+on:
+  push:
+    paths:
+      - "site/**"
+  workflow_dispatch:
+
+concurrency:
+  group: sync-site
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch website rebuild
+        uses: peter-evans/repository-dispatch@v4
+        with:
+          token: ${{ secrets.SITE_DEPLOY_TOKEN }}
+          repository: culm-at/culm-at.github.io
+          event-type: content-updated
+          client-payload: '{"source": "bookmarklets"}'
