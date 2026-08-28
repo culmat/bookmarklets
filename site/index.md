@@ -16,7 +16,7 @@ background.
 1. Make sure your bookmarks bar is visible (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>,
    or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd> on a Mac).
 2. **Drag the blue button** below onto that bar.
-3. Open any page and click the new bookmark.
+3. Open the conversation you want and click the new bookmark.
 
 If dragging is awkward, use **Copy** and paste the result into the *URL* field of a
 manually created bookmark.
