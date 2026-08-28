@@ -1,0 +1,39 @@
+name: Mirror to Codeberg and CodeFloe
+
+# Both forges have pull mirroring disabled site-wide by their administrators, so the
+# sync has to be pushed from here. GitHub is the only writable origin; the forge copies
+# are force-pushed to match it exactly, and commits made directly on a forge will be
+# overwritten.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@v4
+        with:
+          # Mirrors need every commit, not just the tip.
+          fetch-depth: 0
+
+      - name: Push to Codeberg
+        env:
+          TOKEN: ${{ secrets.CODEBERG_TOKEN }}
+        run: |
+          git push --force "https://culmat:${TOKEN}@codeberg.org/culmat/bookmarklets.git" HEAD:main
+          git push --force --tags "https://culmat:${TOKEN}@codeberg.org/culmat/bookmarklets.git"
+
+      - name: Push to CodeFloe
+        env:
+          TOKEN: ${{ secrets.CODEFLOE_TOKEN }}
+        run: |
+          git push --force "https://culmat:${TOKEN}@codefloe.com/culmat/bookmarklets.git" HEAD:main
+          git push --force --tags "https://culmat:${TOKEN}@codefloe.com/culmat/bookmarklets.git"
