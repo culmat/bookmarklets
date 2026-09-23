@@ -30,6 +30,19 @@ Write the body as a plain top-level script; it is wrapped in an IIFE and minifie
 the build, so `const`/`let` declarations cannot collide with the host page. The metadata
 comment is stripped from the condensed output.
 
+## Previewing locally
+
+```sh
+./preview.sh
+```
+
+Then open <http://localhost:4321/bookmarklets> and drag the buttons onto your bookmarks
+bar. The script runs the real renderer,
+[culm-at.github.io](https://github.com/culm-at/culm-at.github.io). If that repo isn't
+checked out next to this one, the script clones it there first. It needs
+[bun](https://bun.sh). The page reloads whenever something under `site/` changes, but a
+bookmark you already dragged keeps the old code, so drag it again after each edit.
+
 ## Mirrors
 
 - <https://codeberg.org/culmat/bookmarklets>
